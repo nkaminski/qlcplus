@@ -1013,7 +1013,6 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
         QMutexLocker locker(&m_stopMutex);
 
         resetElapsed();
-        resetAttributes();
 
         m_functionStopped.wakeAll();
     }
