@@ -1310,17 +1310,22 @@ int Function::adjustAttribute(qreal value, int attributeId)
 
     if (attributeId < OVERRIDE_ATTRIBUTE_START_ID)
     {
-        if (attributeId >= m_attributes.count() || m_attributes[attributeId].m_value == value)
+        if (attributeId >= m_attributes.count()){
             return -1;
-
+        }
+        else if(m_attributes[attributeId].m_value == value){
+            //No adjustment needed, but attribute exists.
+            return attributeId;
+        }
         // Adjust the original value of an attribute. Only Function editors should do this !
         m_attributes[attributeId].m_value = CLAMP(value, m_attributes[attributeId].m_min, m_attributes[attributeId].m_max);
         attrIndex = attributeId;
     }
     else
     {
-        if (m_overrideMap.contains(attributeId) == false || m_overrideMap[attributeId].m_value == value)
+        if (m_overrideMap.contains(attributeId) == false){
             return -1;
+        }
 
         // Adjust an attribute override value and recalculate the final overridden value
         m_overrideMap[attributeId].m_value = value;
